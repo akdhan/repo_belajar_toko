@@ -34,4 +34,19 @@ class OrderController extends Controller
     		return Response()->json(['status'=>0]);
     	}
     }
+     public function show()
+ {
+  $data_order = Order::join('product', 'product.id_prod', 'order.id_prod')->get();
+  return Response()->json($data_order);
+ }
+ public function detail($id)
+ {
+  if (Order::where('id', $id)->exist()) {
+      $data_order = Order::join('product', 'product.id_prod', 'order.id_prod')->where('order.id', '=', $id)->get();
+      return Response()->json($data_order);
+  }
+  else{
+    return Response()->json(['message' => 'Tidak Ditemukan']);
+  }
+ }
 }

@@ -30,4 +30,8 @@ class CustomersController extends Controller
     		return Response()->json(['status'=>0]);
     	}
     }
+        public function show()
+    {
+        return Customers::all();
+    }
 }

@@ -32,4 +32,19 @@ class ParkirController extends Controller
     		return Response()->json(['status'=>0]);
     	}
     }
+    public function show()
+ {
+  $data_parkir = Parkir::join('customers', 'customers.id_custom', 'parkir.id_custom')->get();
+  return Response()->json($data_parkir);
+ }
+ public function detail($id)
+ {
+  if (Parkir::where('id', $id)->exist()) {
+      $data_parkir = Parkir::join('customers', 'customers.id_custom', 'parkir.id_custom')->where('parkir.id', '=', $id)->get();
+      return Response()->json($data_parkir);
+  }
+  else{
+    return Response()->json(['message' => 'Tidak Ditemukan']);
+  }
+ }
 }
