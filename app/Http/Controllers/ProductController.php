@@ -38,5 +38,29 @@ class ProductController extends Controller
     {
         return Product::all();
     }
+    public function update($id, Request $request)
+ {
+ 		$validator=Validator::make($request->all(),
+ 			[
+ 				'nama_prod' => 'required',
+ 				'tanggal_exp' => 'required',
+ 				'harga_prod' => 'required'
+ 			]
+ 		);
+ 		if($validator->fails()) {
+ 			return Response()->json($validator->errors());
+ 		}
+ 		$ubah = Product::where('id', $id)->update([
+ 				'nama_prod' => $request->nama_prod,
+ 				'tanggal_exp' => $request->tanggal_exp,
+ 				'harga_prod' => $request->harga_prod
+ 		]);
+ 		if($ubah) {
+ 			return Response()->json(['status' => 1]);
+ 		}
+ 		else {
+ 			return Response()->json(['status' => 0]);
+ 	}
+ }
 }
 

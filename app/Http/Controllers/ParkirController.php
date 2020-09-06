@@ -47,4 +47,26 @@ class ParkirController extends Controller
     return Response()->json(['message' => 'Tidak Ditemukan']);
   }
  }
+     public function update($id, Request $request)
+ {
+ 		$validator=Validator::make($request->all(),
+ 			[
+ 				'kendaraan' => 'required',
+ 				'id_custom' => 'required'
+ 			]
+ 		);
+ 		if($validator->fails()) {
+ 			return Response()->json($validator->errors());
+ 		}
+ 		$ubah = Parkir::where('id', $id)->update([
+ 				'kendaraan' => $request->kendaraan,
+ 				'id_custom' => $request->id_custom
+ 		]);
+ 		if($ubah) {
+ 			return Response()->json(['status' => 1]);
+ 		}
+ 		else {
+ 			return Response()->json(['status' => 0]);
+ 	}
+ }
 }

@@ -49,4 +49,28 @@ class OrderController extends Controller
     return Response()->json(['message' => 'Tidak Ditemukan']);
   }
  }
+     public function update($id, Request $request)
+ {
+ 		$validator=Validator::make($request->all(),
+ 			[
+ 				'jumlah' => 'required',
+ 				'bill' => 'required',
+ 				'id_prod' => 'required'
+ 			]
+ 		);
+ 		if($validator->fails()) {
+ 			return Response()->json($validator->errors());
+ 		}
+ 		$ubah = Order::where('id', $id)->update([
+ 				'jumlah' => $request->jumlah,
+ 				'bill' => $request->bill,
+ 				'id_prod' => $request->id_prod
+ 		]);
+ 		if($ubah) {
+ 			return Response()->json(['status' => 1]);
+ 		}
+ 		else {
+ 			return Response()->json(['status' => 0]);
+ 	}
+ }
 }
