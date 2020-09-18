@@ -58,7 +58,7 @@ class ParkirController extends Controller
  		if($validator->fails()) {
  			return Response()->json($validator->errors());
  		}
- 		$ubah = Parkir::where('id', $id)->update([
+ 		$ubah = Parkir::where('id_parkir', $id_parkir)->update([
  				'kendaraan' => $request->kendaraan,
  				'id_custom' => $request->id_custom
  		]);
@@ -69,4 +69,13 @@ class ParkirController extends Controller
  			return Response()->json(['status' => 0]);
  	}
  }
+ 		public function destroy($id){
+ 			$hapus = Parkir::where('id_parkir', $id)->delete();
+ 			if($hapus)	{
+ 				return Response()->json(['status' => 1]);
+ 			}
+ 			else {
+ 				return Response()->json(['status' => 0]);
+ 			}
+ 		}
 }

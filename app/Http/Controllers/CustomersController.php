@@ -34,6 +34,8 @@ class CustomersController extends Controller
     {
         return Customers::all();
     }
+
+
         public function update($id, Request $request)
  {
  		$validator=Validator::make($request->all(),
@@ -44,7 +46,7 @@ class CustomersController extends Controller
  		if($validator->fails()) {
  			return Response()->json($validator->errors());
  		}
- 		$ubah = Customers::where('id', $id)->update([
+ 		$ubah = Customers::where('id_custom', $id)->update([
  				'nama_custom' => $request->nama_custom
  		]);
  		if($ubah) {
@@ -54,4 +56,13 @@ class CustomersController extends Controller
  			return Response()->json(['status' => 0]);
  	}
  }
+ 		public function destroy($id){
+ 			$hapus = Customers::where('id_custom', $id)->delete();
+ 			if($hapus)	{
+ 				return Response()->json(['status' => 1]);
+ 			}
+ 			else {
+ 				return Response()->json(['status' => 0]);
+ 			}
+ 		}
 }

@@ -50,7 +50,7 @@ class OrderController extends Controller
   }
  }
      public function update($id, Request $request)
- {
+ 	{
  		$validator=Validator::make($request->all(),
  			[
  				'jumlah' => 'required',
@@ -71,6 +71,15 @@ class OrderController extends Controller
  		}
  		else {
  			return Response()->json(['status' => 0]);
+ 		}
  	}
- }
+ 	public function destroy($id){
+ 			$hapus = Order::where('id', $id)->delete();
+ 			if($hapus)	{
+ 				return Response()->json(['status' => 1]);
+ 			}
+ 			else {
+ 				return Response()->json(['status' => 0]);
+ 			}
+ 		}
 }

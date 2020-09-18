@@ -50,7 +50,7 @@ class ProductController extends Controller
  		if($validator->fails()) {
  			return Response()->json($validator->errors());
  		}
- 		$ubah = Product::where('id', $id)->update([
+ 		$ubah = Product::where('id_prod', $id)->update([
  				'nama_prod' => $request->nama_prod,
  				'tanggal_exp' => $request->tanggal_exp,
  				'harga_prod' => $request->harga_prod
@@ -62,5 +62,14 @@ class ProductController extends Controller
  			return Response()->json(['status' => 0]);
  	}
  }
+ 		public function destroy($id){
+ 			$hapus = Product::where('id_prod', $id)->delete();
+ 			if($hapus)	{
+ 				return Response()->json(['status' => 1]);
+ 			}
+ 			else {
+ 				return Response()->json(['status' => 0]);
+ 			}
+ 		}
 }
 
